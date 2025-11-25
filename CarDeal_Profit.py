@@ -1,4 +1,4 @@
-# -- Bloco de cores --
+# -- Colors --
 RESET = "\033[0m"
 BOLD = "\033[1m"
 CYAN = "\033[96m"
@@ -6,68 +6,69 @@ GREEN = "\033[92m"
 RED = "\033[91m"
 YELLOW = "\033[93m"
 
-# -- Design inicial do terminal --
+# -- initial greeting block --
 print(BOLD + CYAN + "=" * 70 + RESET)
-print(BOLD + CYAN + " SEJA BEM VINDO(A) A CALCULADORA DE LUCRO OU PREJUIZO ".center(70) + RESET)
+print(BOLD + CYAN + "  WELCOME TO THE VEHICLE PROFIT OR LOSS CALCULATOR ".center(70) + RESET)
 print(BOLD + CYAN + "=" * 70 + RESET)
 print(
-    "Como usar? Basta preencher, quando solicitado, o valor pago no carro, o gasto com manutenção e por quanto ele foi vendido!"
+    "How to use? Just enter, when requested, the purchase price, the maintenance cost, and the selling price!"
 )
 print("-" * 70)
 
-# -- Bloco de declaração de variaveis mutáveis --
-repeticao = int(input("Digite quantas vezes você deseja que o programa se repita: "))
-quantidade_de_carros_prejuizo = 0
-quantidade_de_carros_lucro = 0
-zero_a_zero = 0
-soma_lucro = 0
-soma_prejuizo = 0
+# -- variable declarations --
+repeat = int(input("How many times do you want the program to repeat:  "))
+cars_loss_count = 0
+cars_profit_count = 0
+no_profit_no_loss_count = 0
+sum_profit = 0
+sum_loss = 0
 
-# -- Inicio da lógica --
-for i in range(repeticao):
+# -- loop until the person wants to repeat --
+for i in range(repeat):
     print("\n" + "-" * 70)
-    print(BOLD + f"Entrada {i + 1} de {repeticao}" + RESET)
-    preco_pago = float(input("Digite o valor total pago no carro: R$ "))
-    preco_manutencao = float(input("Digite o valor total gasto em manutenções: R$ "))
-    preco_vendido = float(input("Digite o valor total que o carro foi vendido: R$ "))
+    print(BOLD + f"Entry  {i + 1} of {repeat}" + RESET)
+    car_cost = float(input("Car purchase price: $ "))
+    car_maintenance = float(input("Maintenance cost: $ "))
+    car_sold = float(input("Selling price: $"))
 
-    preco_total_gasto = preco_pago + preco_manutencao
-    renda_total = preco_vendido - preco_total_gasto
+    total_spend = car_cost + car_maintenance
+    total_profit = car_sold - total_spend
 
-    # -- Bloco de lógica para quantidade de carros em prejuizo/lucro --
-    if renda_total < 0:
-        print(RED + f"Vish esse carro deu um prejuizo de: R${renda_total:.2f}" + RESET)
-        quantidade_de_carros_prejuizo += 1
-        soma_prejuizo += renda_total
-    elif renda_total > 0:
-        print(GREEN + f"Esse carro deu bom, o lucro foi de: {renda_total:.2f}" + RESET)
-        quantidade_de_carros_lucro += 1
-        soma_lucro += renda_total
+    # -- checking if there was loss or profit --
+    if total_profit < 0:
+        print(RED + f"This car generated a loss of: ${total_profit:.2f}" + RESET)
+        cars_loss_count += 1
+        sum_loss += total_profit
+    elif total_profit > 0:
+        print(GREEN + f"This car generated a profit of: {total_profit:.2f}" + RESET)
+        cars_profit_count += 1
+        sum_profit += total_profit
     else:
-        print(YELLOW + "Esse carro não deu lucro nem prejuizo!" + RESET)
-        zero_a_zero += 1
+        print(YELLOW + "This car generated neither profit nor loss!" + RESET)
+        no_profit_no_loss_count += 1
 
 
-# -- Calculo da média evitando divisão por 0 --
-if quantidade_de_carros_lucro > 0:
-    media_total_lucro = soma_lucro / quantidade_de_carros_lucro
+# -- Calculating the average profit (avoiding division by zero) --
+if cars_profit_count > 0:
+    average_profit = sum_profit / cars_profit_count
 else:
-    media_total_lucro = 0.0
+    average_profit = 0.0
 
-if quantidade_de_carros_prejuizo > 0:
-    media_total_prejuizo = soma_prejuizo / quantidade_de_carros_prejuizo
+# -- Calculating the average loss (avoiding division by zero) --
+if cars_loss_count > 0:
+    average_loss = sum_loss / cars_loss_count
 else:
-    media_total_prejuizo = 0.0
+    average_loss = 0.0
 
 
-# -- Bloco para mostrar os resultados -- 
+# -- Block to Show the results --
 print("\n" + BOLD + CYAN + "=" * 70 + RESET)
-print(BOLD + "RESUMO".center(70) + RESET)
+print(BOLD + "RESUME".center(70) + RESET)
 print(BOLD + CYAN + "=" * 70 + RESET)
-print(f"Foram enviados {repeticao} carros para a calculadora!")
-print(GREEN + f"Você teve {quantidade_de_carros_lucro} carros que deram lucro!")
-print(RED + f"Você teve {quantidade_de_carros_prejuizo} carros que deram prejuízo!")
-print(RESET + f"Você teve {zero_a_zero} carros que não deram lucro e nem prejuízo!")
-print(GREEN + f"Você teve uma média de lucro de R$ {media_total_lucro:.2f}!")
-print(RED + f"Você teve uma média de prejuízo de R$ {media_total_prejuizo:.2f}!")
+print(f"A total of {repeat} cars were processed!")
+print(GREEN + f"You had {cars_profit_count} cars with profit!")
+print(RED + f"You had {cars_loss_count} cars with loss!")
+print(RESET + f"You had {no_profit_no_loss_count} cars with no profit and no loss.")
+print(GREEN + f"Your average profit was: $ {average_profit:.2f}")
+print(RED + f"Your average loss was: $ {average_loss:.2f}")
 print(BOLD + CYAN + "=" * 70 + RESET)
